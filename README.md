@@ -1,14 +1,15 @@
 <div align="left">
 
-# Canadian Data & Analytics Job Market — Visualization Project
+# Canadian Analyst Job Market — Salary & Demand Dashboard
 
 **BAM-2053 · Data Visualization · Lambton College Ottawa · Spring 2026**
-**Professor:** Robert Decher
+**Professor:** Robert Decher · **Team:** Northbound Analytics
 
-![Status](https://img.shields.io/badge/status-in_progress-1a1a2e?style=flat-square)
-![Course](https://img.shields.io/badge/course-BAM--2053-efd81d?style=flat-square&labelColor=1a1a2e)
-![Dataset](https://img.shields.io/badge/dataset-1796_rows_×_13_fields-16213e?style=flat-square)
-![License](https://img.shields.io/badge/license-Academic-475569?style=flat-square)
+![Course](https://img.shields.io/badge/course-BAM--2053-1A1A2E?style=flat-square)
+![Proposal](https://img.shields.io/badge/proposal-v3_submitted-0F766E?style=flat-square)
+![Dataset](https://img.shields.io/badge/dataset-1,796_rows_×_13_fields-B88A00?style=flat-square)
+![Primary Tool](https://img.shields.io/badge/built_with-Power_BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
+![Secondary Tool](https://img.shields.io/badge/mirror-Looker_Studio-4285F4?style=flat-square&logo=googleanalytics&logoColor=white)
 
 </div>
 
@@ -16,9 +17,9 @@
 
 ## Overview
 
-This repository contains the full pipeline for our **BAM-2053 Capstone Project**: a data visualization study of the **Canadian Data & Analytics job market**, built from a Kaggle dataset of **1,796 Indeed.ca job postings**. The goal is to turn raw job-board noise into a dashboard that answers a real business question — *which skills, cities, and seniorities actually pay in Canada right now?* — while applying the design principles taught in the course (cognitive load, data-ink ratio, visual hierarchy, pre-attentive processing).
+This repository contains the full pipeline for our **BAM-2053 Capstone Project**: a data visualization study of the **Canadian Analyst job market**, built from a Kaggle dataset of **1,796 cleaned Indeed.ca job postings**. The goal is to turn raw job-board noise into an interactive dashboard that answers a real career question — *which combinations of skill, city, seniority, and work mode pay best in Canada right now?* — while applying every design principle the course emphasizes (cognitive load, data-ink ratio, F-pattern, pre-attentive processing, Gestalt grouping).
 
-> The project is evaluated on **both analytical rigor and visual design quality**. Every chart choice in this repo is justified through the 3-Lens Framework (Purpose · Data · Audience).
+> The project is evaluated on **both analytical rigor and visual design quality**. Every chart choice in this repo is justified through the **3-Lens Framework** (Purpose · Data · Audience).
 
 ---
 
@@ -27,31 +28,55 @@ This repository contains the full pipeline for our **BAM-2053 Capstone Project**
 ```
 Data_Visualiazation/
 ├── Dataset/         Raw and cleaned CSV datasets
-├── Proposal/        Capstone proposal Word documents
+├── Proposal/        Capstone proposal (v1, v2, v3 + PDF)
 ├── Scripts/         Python cleaning / EDA scripts
 ├── Agents/          Claude Code custom agents (design + course-specific)
-├── Skills/          Claude Code skills (UI/UX, proposal writing, frontend)
+├── Skills/          Claude Code skills (UI/UX, proposal, dashboard, frontend)
 └── README.md        You are here
 ```
 
-| Folder | What's inside | Why it matters |
-|---|---|---|
-| [`Dataset/`](Dataset/) | `Raw_Dataset.csv`, `Cleaned_Dataset.csv` | Source data + analysis-ready table |
-| [`Proposal/`](Proposal/) | `Project_Proposal.docx`, `Project_proposal_2.docx` | Drafts of the May 25 proposal submission |
-| [`Scripts/`](Scripts/) | `script.py` | Cleaning, salary parsing, feature engineering |
-| [`Agents/`](Agents/) | 5 custom AI agents | Design critique, course expertise, dev support |
-| [`Skills/`](Skills/) | 4 skill packs | Reusable design + writing protocols |
+| Folder | What's inside |
+|---|---|
+| [`Dataset/`](Dataset/) | `Raw_Dataset.csv`, `Cleaned_Dataset.csv` — source + analysis-ready data |
+| [`Proposal/`](Proposal/) | `Project_Proposal_v1.docx`, `_v2.docx`, **`_v3.docx`** (current), `_v3.pdf` |
+| [`Scripts/`](Scripts/) | `script.py` — cleaning / feature engineering (in progress) |
+| [`Agents/`](Agents/) | 5 custom AI agents |
+| [`Skills/`](Skills/) | 5 skill packs |
+
+---
+
+## Project Status
+
+| Milestone | Date | Weight | Status |
+|---|---|---|---|
+| Proposal submission (600–800 words) | **May 25, 2026** | 10% | ✅ **submitted — v3** |
+| Midterm exam | May 28, 2026 | — | ⏳ |
+| MVP presentation (7–10 min, ≥80% functional) | June 4, 2026 | — | ⏳ |
+| Final dashboard + presentation | June 15, 2026 | 30% + 10% | ⏳ |
+| Final exam | June 18, 2026 | — | ⏳ |
 
 ---
 
 ## The Dataset
 
-**Source:** Kaggle — *Indeed Canada Data Analyst Job Postings*
-**Geography:** Canada-wide (all provinces + remote)
+**Source:** [Kaggle — Data Analyst Job Roles in Canada](https://www.kaggle.com/datasets/amanbhattarai695/data-analyst-job-roles-in-canada)
+**Geography:** Canada-wide (14 provinces + remote)
 **Size:** 1,796 observations · 13 fields after cleaning
 **Meets course requirements:** ✓ ≥10 fields · ✓ ≥100 rows
 
-### Cleaned Fields
+### Headline statistics
+
+| Field | Key statistics |
+|---|---|
+| **Province** | 14 provinces · Ontario 53%, BC 14%, Alberta 11% |
+| **Job Title** | 10 categories · top: Senior Supply Chain (262), BI Analysts (229) |
+| **Seniority** | ANY 76% · Senior 20% · Mid 2% |
+| **Work Type** | In-Person 91% · Remote 8% · Hybrid 1% |
+| **Industry** | 22 types · Technology 19% · Healthcare 7% · Others 53% |
+| **Skills** | 1,057 unique tags · top: Excel, Python, SQL, Power BI |
+| **Salary (Avg)** | Mean **$78,435** · range $43,720–$158,640 · σ $18,027 |
+
+### Cleaned fields
 
 | Field | Type | Description |
 |---|---|---|
@@ -61,7 +86,7 @@ Data_Visualiazation/
 | `Employer` | Categorical | Company name |
 | `City` | Categorical | Posting city (incl. *Remote*) |
 | `Province` | Categorical | Province code (`Undef` where missing) |
-| `Skill` | Multi-value | Comma-separated tools (Python, SQL, Power BI, Excel...) |
+| `Skill` | Multi-value | Comma-separated tools (Python, SQL, Power BI, Excel…) |
 | `Seniority` | Ordinal | Junior · Mid · Senior · ANY |
 | `Work Type` | Categorical | Remote · Hybrid · On-site |
 | `Industry Type` | Categorical | Sector grouping |
@@ -73,9 +98,20 @@ Data_Visualiazation/
 
 ## Business Question
 
-> **Which combinations of skills, cities, seniorities, and work modes drive the highest salaries for Data & Analytics roles in Canada — and where are the underserved segments of the market?**
+> **Which combinations of skill, city, seniority, and work mode pay best in Canada right now — and where are the underserved segments of the market?**
 
-**Target audience:** recent graduates and career-changers in the Ottawa region deciding where to invest learning time. Secondary audience: program advisors at Lambton College.
+### Five concrete questions the dashboard must answer
+
+1. Which province offers the highest median salary for entry-level analyst roles?
+2. Do remote roles pay differently than on-site roles within the same job family?
+3. Which skill combinations correlate with salaries above the 75th percentile?
+4. How does seniority affect salary range spread within each industry?
+5. Which cities concentrate the most analyst demand outside Ontario?
+
+### Target audience
+
+**Primary:** recent graduates and career-changers in Ottawa deciding which roles to pursue.
+**Secondary:** Lambton program advisors guiding placement, and recruiters benchmarking compensation. The dashboard assumes no SQL or BI background — it must work for a first-year student in the first ten seconds with the file.
 
 ---
 
@@ -83,16 +119,28 @@ Data_Visualiazation/
 
 Each chart is chosen using the **3-Lens Framework** (Purpose · Data · Audience) and respects the **zero-baseline rule** for all magnitude comparisons.
 
-| # | Chart | Purpose | Why this chart |
-|---|---|---|---|
-| 1 | **KPI / BAN tiles** | Headline metrics (median salary, # postings, top city) | Pre-attentive — big numbers communicate instantly, lowest cognitive load |
-| 2 | **Horizontal bar chart** | Top 15 skills by avg. salary | Length is the most accurate pre-attentive attribute for comparison |
-| 3 | **Choropleth map** | Postings & salary by province | Geographic dimension is native to the data; color shading reveals clusters |
-| 4 | **Box / violin plot** | Salary distribution by seniority | Shows spread, not just averages — protects against misleading means |
-| 5 | **Dot / dumbbell plot** | Remote vs. On-site salary gap per role | Two-group comparison without dual-axis pitfalls |
-| 6 | **Detail table** | Drill-down at the bottom of the dashboard | Tufte: tables beat charts for exact values |
+### Market Overview
+| Chart | Why this chart |
+|---|---|
+| **KPI / BAN tiles** | Pre-attentive numerals — median salary, postings, top province communicate instantly |
+| **Choropleth map by province** | Geography is native to the data; color shading exposes regional clusters |
+| **Horizontal bar · job title × seniority** | Length is the most accurate pre-attentive attribute for comparison |
 
-**Explicitly avoided:** pie charts with >5 slices, dual-axis charts, 3D effects, decorative chartjunk.
+### Salary Analysis
+| Chart | Why this chart |
+|---|---|
+| **Box plots · salary by job title** | Show spread, not just averages — protects against misleading means |
+| **Grouped bar · work type × province** | Zero-baseline anchored; one accent highlights the top combination |
+| **Scatter · min vs. max salary by industry** | Reveals band spread; explicit caveat: correlation ≠ causation |
+
+### Skills & Interactivity
+| Chart | Why this chart |
+|---|---|
+| **Treemap · top skills** | Area reads more reliably than typographic size in a word cloud |
+| **Global filter panel** | Province · seniority · work type · industry · salary, grouped by proximity (Gestalt) |
+| **Detail table** | Tufte: tables beat charts for exact values; placed last as reference material |
+
+**Explicitly avoided:** pie charts with >5 slices, dual-axis charts, 3D effects, decorative chartjunk, color as the sole encoding.
 
 ---
 
@@ -100,35 +148,32 @@ Each chart is chosen using the **3-Lens Framework** (Purpose · Data · Audience
 
 This project is graded as much on **design execution** as on analysis. Decisions follow:
 
-- **Cognitive load minimization** — restrained palette, generous whitespace, one accent color (`#efd81d`) reserved for the metric we want the viewer to look at first
-- **F-pattern layout** — KPIs top-left, trends top-right, detail tables at the bottom
-- **Gestalt grouping** — related filters (geography, role, skill) clustered by proximity
 - **Data-ink ratio (Tufte)** — no gridlines unless they aid reading, no shadows on bars, no 3D
-- **Accessibility** — ColorBrewer-safe palettes, ≥4.5:1 contrast on text, no color-only encoding
-- **Dashboard, not Report** — interactive filtering (province, seniority, work type) so the user explores rather than reads
+- **Single accent color** — one color reserved for the metric we want the audience to notice first
+- **F-pattern layout** — KPIs top-left where attention concentrates, comparative charts middle, detail table at the bottom
+- **Pre-attentive processing** — length, color hue, and position used deliberately to direct the eye
+- **Gestalt grouping** — related filters clustered by proximity, not floating separately
+- **Hick's Law** — interactivity limited to five filters; fewer controls, better decisions
+- **Accessibility** — ColorBrewer-safe palettes, ≥4.5:1 contrast on text, color never the sole encoding
+- **Dashboard, not Report** — interactive filtering (province, seniority, work type, industry, salary) so the user explores rather than reads
 
 ---
 
-## Project Timeline
+## Reference Example
 
-| Date | Milestone | Weight |
-|---|---|---|
-| **May 25, 2026** | Proposal submission (600–800 words) | 10% |
-| **May 28, 2026** | Midterm exam | — |
-| **June 4, 2026** | MVP presentation (7–10 min, ≥80% functional) | — |
-| **June 15, 2026** | Final dashboard + presentation | 30% + 10% |
-| **June 18, 2026** | Final exam | — |
+We benchmarked our concept against the **[Robert Half 2025 Canada Salary Guide](https://www.roberthalf.com/ca/en/insights/salary-guide)**, which publishes compensation ranges for Canadian analytics roles by city and seniority. It is a static PDF with no skill, work-type, or industry filtering. Our dashboard adds the multi-dimensional filtering and skill-frequency layer Robert Half cannot provide.
 
 ---
 
 ## Tooling
 
-| Layer | Tool |
-|---|---|
-| Data cleaning | Python (`pandas`, `numpy`) — see [`Scripts/script.py`](Scripts/script.py) |
-| Dashboard | Power BI *(primary)* / Google Data Studio *(fallback)* |
-| Document writing | Microsoft Word (proposal in [`Proposal/`](Proposal/)) |
-| AI assistance | Claude Code with the agents and skills in [`Agents/`](Agents/) and [`Skills/`](Skills/) |
+| Layer | Tool | Why |
+|---|---|---|
+| Data cleaning | **Python** (`pandas`, `numpy`) | Reproducible pipeline in [`Scripts/script.py`](Scripts/script.py) |
+| Dashboard (primary) | **Power BI** | Handles dataset, treemap, and multi-filter interactivity natively; both team members already use it from BAM-2024 |
+| Dashboard (secondary) | **Google Looker Studio** | Publishes via URL — no Microsoft account needed for the student audience |
+| Document writing | Microsoft Word | Proposal in [`Proposal/`](Proposal/) |
+| AI assistance | Claude Code | Agents and skills in [`Agents/`](Agents/) and [`Skills/`](Skills/) |
 
 ---
 
@@ -150,10 +195,22 @@ Custom Claude Code configurations used to keep the work disciplined and on-brand
 
 | Skill | Purpose |
 |---|---|
-| [`proposal-skill/`](Skills/proposal-skill/) | Step-by-step protocol for the BAM-2053 Word proposal |
+| [`proposal-skill/`](Skills/proposal-skill/) | Step-by-step protocol for the BAM-2053 Word proposal (used for v3) |
+| [`dashboard-skill/`](Skills/dashboard-skill/) | Protocol for building the Power BI / Looker Studio dashboard |
 | [`ui-ux-pro-max/`](Skills/ui-ux-pro-max/) | 50 styles · 21 palettes · 50 font pairings · 20 chart types |
 | [`frontend-design/`](Skills/frontend-design/) | Component-level design patterns |
 | [`senior-frontend/`](Skills/senior-frontend/) | Performance + architecture reference |
+
+---
+
+## Proposal History
+
+| Version | File | What changed |
+|---|---|---|
+| v1 | [`Project_Proposal_v1.docx`](Proposal/Project_Proposal_v1.docx) | First draft — basic sections, no design styling |
+| v2 | [`Project_proposal_v2.docx`](Proposal/Project_proposal_v2.docx) | Reformatted, consolidated content |
+| **v3** | **[`Project_proposal_v3.docx`](Proposal/Project_proposal_v3.docx)** | **Submitted version.** Editorial layout, navy + gold + teal palette, all 8 rubric items covered: team name (*Northbound Analytics*), purpose & objectives, 5 key questions, target audience, data sources + limitations, 8 visualizations + wireframe sketch, reference example (Robert Half), tool justification (Power BI + Looker Studio) |
+| v3 PDF | [`Project_proposal_v3.pdf`](Proposal/Project_proposal_v3.pdf) | PDF export of v3 for submission portal |
 
 ---
 
@@ -164,24 +221,24 @@ Custom Claude Code configurations used to keep the work disciplined and on-brand
 git clone <repo-url>
 cd Data_Visualiazation
 
-# 2. (When the cleaning script is finalized)
+# 2. Run cleaning pipeline (when finalized)
 python Scripts/script.py
 
 # 3. Open the dashboard
-#    Power BI: open Dashboard/<file>.pbix
-#    Data Studio: open the shared link from Proposal/
+#    Power BI:        Dashboard/<file>.pbix
+#    Looker Studio:   shared link in Proposal/Project_proposal_v3.docx
 ```
 
-> The cleaning script is currently a stub — it will be filled in during Sprint 1 to take `Raw_Dataset.csv → Cleaned_Dataset.csv` reproducibly (salary range parsing, role-family standardization, province inference from city).
+> The cleaning script is currently a stub. It will be filled in during Sprint 1 to take `Raw_Dataset.csv → Cleaned_Dataset.csv` reproducibly (salary range parsing, role-family standardization, province inference from city).
 
 ---
 
-## Team
+## Team — Northbound Analytics
 
-| Name | Role |
-|---|---|
-| **Sebastián H.S.** | Data prep, dashboard design, proposal writing |
-| *(partner, if any)* | *(role)* |
+| Name | Student ID | Role |
+|---|---|---|
+| **Andrés Camilo Cepeda Pedraza** | C0967286 | Dashboard build, data cleaning, presentation |
+| **Juan Sebastián Herrera Sanchez** | C0965669 | Design system, proposal writing, narrative |
 
 ---
 
