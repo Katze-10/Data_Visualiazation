@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Canadian Analyst Job Market — Dashboard Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF7;
+  --paper:#FFFFFF;
+  --ink:#0F172A;
+  --ink-soft:#1A1A2E;
+  --muted:#475569;
+  --muted-soft:#94A3B8;
+  --rule:#E2E8F0;
+  --rule-soft:#EEF2F6;
+  --gold:#B88A00;
+  --gold-soft:#D4A017;
+  --gold-bg:#FBF5E2;
+  --teal:#0F766E;
+  --teal-soft:#14B8A6;
+  --teal-bg:#E6F4F1;
+  --red:#B91C1C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
+@page{size:11in 17in;margin:0}
+
+.app{width:11in;padding:.45in;background:var(--bg);position:relative}
+
+/* ── TITLE BAR ──────────────────────────────────────── */
+.titlebar{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:16px;
+}
+.brand .eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);
+}
+.brand .eyebrow b{color:var(--gold);font-weight:600}
+.brand .eyebrow .sep{color:var(--rule-soft);margin:0 6px}
+.brand h1{
+  font-family:'Fraunces',serif;font-weight:900;font-size:34px;line-height:1;
+  letter-spacing:-.02em;color:var(--ink-soft);margin-top:6px;
+}
+.brand h1 em{font-style:italic;color:var(--gold);font-weight:700}
+.brand .sub{font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--muted);margin-top:4px}
+.tb-right{text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.live-chip{
+  display:inline-flex;align-items:center;gap:6px;background:var(--teal-bg);color:var(--teal);
+  padding:4px 10px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:.12em;font-weight:600;text-transform:uppercase;
+}
+.live-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(20,184,166,.2)}
+.tb-meta{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);line-height:1.6}
+.tb-meta b{color:var(--ink-soft)}
+
+/* ── FILTER BAR ─────────────────────────────────────── */
+.filterbar{
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  padding:9px 12px;background:var(--paper);border:1px solid var(--rule);
+  border-radius:7px;margin-bottom:14px;
+}
+.fb-label{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-right:4px;
+}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border:1px solid var(--rule);border-radius:99px;
+  font-size:10.5px;color:var(--ink);background:#FCFCFA;
+}
+.chip.active{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.chip .caret{font-size:8px;opacity:.6}
+.fb-right{margin-left:auto;display:flex;gap:6px}
+.btn{padding:5px 11px;border:1px solid var(--ink-soft);border-radius:5px;
+  background:var(--ink-soft);color:#fff;font-size:10.5px;font-weight:600;
+  font-family:'Space Grotesk',sans-serif;}
+.btn.ghost{background:transparent;color:var(--ink-soft)}
+
+/* ── KPI STRIP ─────────────────────────────────────── */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kpi{
+  background:var(--paper);border:1px solid var(--rule);border-radius:7px;
+  padding:12px 14px;position:relative;overflow:hidden;min-height:96px;
+}
+.kpi.hero{background:linear-gradient(135deg, #FBF5E2 0%, #FFFCF1 100%);border-color:#EBD493}
+.kpi::after{
+  content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:2px;
+  background:var(--teal);
+}
+.kpi.hero::after{background:var(--gold)}
+.kpi .k{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.kpi .v{font-family:'Fraunces',serif;font-weight:900;font-size:30px;
+  color:var(--ink-soft);line-height:1.05;margin-top:4px;letter-spacing:-.02em}
+.kpi.hero .v{color:var(--gold)}
+.kpi .v.sm{font-size:20px;line-height:1.1}
+.kpi .delta{display:inline-flex;align-items:center;gap:4px;margin-top:4px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--teal);font-weight:600}
+.kpi .delta.down{color:#B91C1C}
+.kpi .delta.muted{color:var(--muted)}
+
+/* ── VIZ CARDS GRID ────────────────────────────────── */
+.row{display:grid;gap:14px;margin-bottom:14px}
+.row.r1{grid-template-columns:1fr 1fr}
+.row.r2{grid-template-columns:1fr 1fr}
+.row.r3{grid-template-columns:1.3fr 1fr}
+.row.r4{grid-template-columns:1fr}
+
+.viz{
+  background:var(--paper);border:1px solid var(--rule);border-radius:7px;
+  padding:13px 15px;display:flex;flex-direction:column;
+}
+.viz-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  border-bottom:1px solid var(--rule);padding-bottom:7px;margin-bottom:10px;gap:8px;
+}
+.viz-head .t{font-family:'Fraunces',serif;font-weight:700;font-size:14px;
+  color:var(--ink-soft);letter-spacing:-.005em;}
+.viz-head .t small{font-family:'Space Grotesk',sans-serif;font-weight:500;
+  font-size:9.5px;color:var(--muted);margin-left:5px;letter-spacing:0}
+.viz-head .legend{display:flex;gap:9px;font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.viz-head .legend .sw{display:inline-block;width:9px;height:9px;border-radius:2px;
+  margin-right:3px;vertical-align:-1px}
+
+/* ── BAR CHART (universal) ─────────────────────────── */
+.bars{display:flex;flex-direction:column;gap:5px}
+.barRow{display:grid;grid-template-columns:88px 1fr 70px;align-items:center;gap:10px;font-size:10.5px}
+.barRow .lbl{color:var(--ink);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.barRow .track{height:14px;background:var(--rule-soft);border-radius:3px;position:relative}
+.barRow .fill{height:100%;border-radius:3px;background:var(--teal)}
+.barRow .fill.gold{background:var(--gold)}
+.barRow .fill.muted{background:var(--muted-soft)}
+.barRow .fill.dim{background:#CBD5E1}
+.barRow .num{font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--ink-soft);text-align:right;font-weight:600}
+.barRow .num small{color:var(--muted);font-weight:400}
+
+.barRow.wide{grid-template-columns:160px 1fr 60px}
+
+/* ── CANADA MAP (SVG abstract) ─────────────────────── */
+.canadaWrap{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;align-items:start}
+.canadaWrap .map{background:#F8FAFC;border:1px solid var(--rule);border-radius:6px;padding:10px}
+.canadaWrap .map svg{width:100%;height:auto;display:block}
+.canadaWrap .legend-bar{display:flex;gap:0;margin-top:8px;border-radius:3px;overflow:hidden}
+.canadaWrap .legend-bar div{flex:1;height:9px}
+.canadaWrap .legend-labels{display:flex;justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--muted);margin-top:3px;letter-spacing:.04em}
+
+/* ── BOX PLOTS ─────────────────────────────────────── */
+.boxList{display:flex;flex-direction:column;gap:9px;padding:2px 0}
+.boxList .row-h{display:grid;grid-template-columns:50px 1fr 95px;
+  align-items:center;gap:12px;font-size:10.5px}
+.boxList .lbl{font-weight:600;color:var(--ink-soft);text-align:right}
+.boxList .stat{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);line-height:1.4}
+.boxList .stat b{color:var(--ink-soft);font-weight:600}
+.boxList .box-svg{width:100%;height:34px;display:block}
+.boxAxis{display:grid;grid-template-columns:50px 1fr 95px;gap:12px;
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--muted-soft);
+  margin-top:4px;padding-top:6px;border-top:1px dashed var(--rule)}
+.boxAxis .axis{display:flex;justify-content:space-between;padding:0 2px}
+
+/* ── GROUPED BARS WORK TYPE × PROVINCE ─────────────── */
+.gbars{display:flex;flex-direction:column;gap:11px}
+.gbar-row{display:flex;flex-direction:column;gap:3px}
+.gbar-row .pheader{display:flex;justify-content:space-between;align-items:center;
+  font-size:10.5px;font-weight:600;color:var(--ink-soft);
+  border-bottom:1px dashed var(--rule);padding-bottom:2px;margin-bottom:2px}
+.gbar-row .pheader small{font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:var(--muted);font-weight:400}
+.gbar-item{display:grid;grid-template-columns:55px 1fr 60px;align-items:center;gap:8px;font-size:9.5px}
+.gbar-item .type{font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.gbar-item .track{height:10px;background:var(--rule-soft);border-radius:2px}
+.gbar-item .fill{height:100%;border-radius:2px}
+.gbar-item .num{font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  color:var(--ink-soft);font-weight:600;text-align:right}
+
+/* ── TREEMAP (manual layout) ──────────────────────── */
+.tm{position:relative;width:100%;height:300px;border-radius:6px;overflow:hidden;
+  background:#F8FAFC;border:1px solid var(--rule)}
+.tm .tile{
+  position:absolute;border-radius:5px;padding:8px 10px;color:#fff;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border:2px solid rgba(255,255,255,.6);
+}
+.tm .tile .s{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1}
+.tm .tile .m{font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.9}
+
+/* ── DETAIL TABLE ─────────────────────────────────── */
+.dtable{width:100%;border-collapse:collapse;font-size:10px}
+.dtable thead th{
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;
+  text-align:left;padding:7px 8px;border-bottom:1.5px solid var(--ink-soft);
+}
+.dtable tbody td{padding:6px 8px;border-bottom:1px solid var(--rule-soft);color:var(--ink)}
+.dtable td.num{font-family:'JetBrains Mono',monospace;text-align:right;
+  color:var(--ink-soft);font-weight:600}
+.dtable td .tag{display:inline-block;padding:2px 6px;background:var(--teal-bg);
+  color:var(--teal);border-radius:3px;font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;margin-right:3px;font-weight:600}
+
+/* ── FOOTER ───────────────────────────────────────── */
+.foot{
+  margin-top:14px;padding-top:12px;border-top:2px solid var(--ink-soft);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);
+}
+.foot b{color:var(--ink-soft)}
+.mockup-badge{padding:3px 8px;border:1px solid var(--gold);color:var(--gold);
+  font-weight:600;letter-spacing:.1em;border-radius:4px;font-size:8px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ── TITLE BAR ── -->
+  <header class="titlebar">
+    <div class="brand">
+      <div class="eyebrow"><b>BAM-2053</b><span class="sep">/</span>Capstone Dashboard<span class="sep">/</span>Mockup v2</div>
+      <h1>Canadian Analyst <em>Job Market</em></h1>
+      <div class="sub">Salary &amp; Demand Dashboard — 1,796 Indeed.ca postings · 14 provinces · 22 industries</div>
+    </div>
+    <div class="tb-right">
+      <div class="live-chip"><span class="dot"></span>2024–25 snapshot</div>
+      <div class="tb-meta"><b>Northbound Analytics</b> · BAM-2053<br>Lambton College Ottawa · Spring 2026</div>
+    </div>
+  </header>
+
+  <!-- ── FILTER BAR ── -->
+  <div class="filterbar">
+    <span class="fb-label">Filters</span>
+    <span class="chip">Province ▾</span>
+    <span class="chip active">Seniority: All ✕</span>
+    <span class="chip">Work Type ▾</span>
+    <span class="chip">Industry ▾</span>
+    <span class="chip">Salary Range ▾</span>
+    <span class="chip">Skills ▾</span>
+    <div class="fb-right">
+      <button class="btn ghost">Reset</button>
+      <button class="btn">Apply</button>
+    </div>
+  </div>
+
+  <!-- ── KPI STRIP ── -->
+  <div class="kpis">
+    <div class="kpi hero">
+      <div class="k">Median Salary</div>
+      <div class="v">$77,750</div>
+      <div class="delta">national median · CAD</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Postings analyzed</div>
+      <div class="v">1,796</div>
+      <div class="delta muted">across 22 industries</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Top-paying province</div>
+      <div class="v sm">Saskatchewan</div>
+      <div class="delta">median $82,856 · n=16</div>
+    </div>
+    <div class="kpi">
+      <div class="k">In-Person share</div>
+      <div class="v">91%</div>
+      <div class="delta down">Remote only 7.9%</div>
+    </div>
+  </div>
+
+  <!-- ── ROW 1: CHOROPLETH (svg map + bars) ── -->
+  <div class="row r4">
+    <div class="viz">
+      <div class="viz-head">
+        <div class="t">Postings by Province <small>· choropleth + ranked bars</small></div>
+        <div class="legend">
+          <span><span class="sw" style="background:#CCFBF1"></span>Low</span>
+          <span><span class="sw" style="background:#14B8A6"></span>Mid</span>
+          <span><span class="sw" style="background:#0F766E"></span>High</span>
+        </div>
+      </div>
+
+      <div class="canadaWrap">
+        <!-- abstract SVG map of Canada -->
+        <div class="map">
+          <svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- Northern territories (no data) -->
+            <rect x="40"  y="20"  width="380" height="80" rx="6" fill="#F1F5F9" stroke="#E2E8F0"/>
+            <text x="230" y="55" font-family="JetBrains Mono" font-size="11" fill="#94A3B8" text-anchor="middle">YT · NT · NU</text>
+            <text x="230" y="72" font-family="Space Grotesk" font-size="9" fill="#94A3B8" text-anchor="middle">no data</text>
+
+            <!-- BC -->
+            <rect x="40"  y="110" width="90"  height="110" rx="6" fill="#5EEAD4" stroke="#14B8A6"/>
+            <text x="85"  y="145" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">BC</text>
+            <text x="85"  y="170" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#0F172A" text-anchor="middle">243</text>
+            <text x="85"  y="200" font-family="JetBrains Mono" font-size="9" fill="#475569" text-anchor="middle">13.5% · $80,586</text>
+
+            <!-- AB -->
+            <rect x="140" y="110" width="70"  height="110" rx="6" fill="#99F6E4" stroke="#5EEAD4"/>
+            <text x="175" y="145" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">AB</text>
+            <text x="175" y="170" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#0F172A" text-anchor="middle">192</text>
+            <text x="175" y="200" font-family="JetBrains Mono" font-size="9" fill="#475569" text-anchor="middle">10.7% · $78,150</text>
+
+            <!-- SK -->
+            <rect x="220" y="110" width="50"  height="110" rx="6" fill="#F0FDFA" stroke="#CCFBF1"/>
+            <text x="245" y="145" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle">SK</text>
+            <text x="245" y="170" font-family="Space Grotesk" font-size="16" font-weight="700" fill="#0F172A" text-anchor="middle">16</text>
+            <text x="245" y="195" font-family="JetBrains Mono" font-size="9" fill="#B88A00" text-anchor="middle">★ $82,856</text>
+
+            <!-- MB -->
+            <rect x="280" y="110" width="50"  height="110" rx="6" fill="#F0FDFA" stroke="#CCFBF1"/>
+            <text x="305" y="145" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle">MB</text>
+            <text x="305" y="170" font-family="Space Grotesk" font-size="16" font-weight="700" fill="#0F172A" text-anchor="middle">37</text>
+            <text x="305" y="195" font-family="JetBrains Mono" font-size="9" fill="#475569" text-anchor="middle">2.1%</text>
+
+            <!-- ON (the giant) -->
+            <rect x="340" y="110" width="120" height="110" rx="6" fill="#0F766E" stroke="#0F766E"/>
+            <text x="400" y="148" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">ON</text>
+            <text x="400" y="180" font-family="Space Grotesk" font-size="28" font-weight="900" fill="#fff" text-anchor="middle">949</text>
+            <text x="400" y="205" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,.85)" text-anchor="middle">52.8% · $77,750</text>
+
+            <!-- QC -->
+            <rect x="470" y="110" width="90" height="110" rx="6" fill="#5EEAD4" stroke="#14B8A6"/>
+            <text x="515" y="145" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">QC</text>
+            <text x="515" y="170" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#0F172A" text-anchor="middle">176</text>
+            <text x="515" y="200" font-family="JetBrains Mono" font-size="9" fill="#475569" text-anchor="middle">9.8% · $76,980</text>
+
+            <!-- Atlantic provinces -->
+            <rect x="40"  y="230" width="180" height="70" rx="6" fill="#F8FAFC" stroke="#E2E8F0"/>
+            <text x="130" y="258" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Undefined / Remote</text>
+            <text x="130" y="285" font-family="Space Grotesk" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">118 · 6.6%</text>
+
+            <rect x="230" y="230" width="60"  height="70" rx="6" fill="#F0FDFA" stroke="#CCFBF1"/>
+            <text x="260" y="258" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">NB</text>
+            <text x="260" y="283" font-family="Space Grotesk" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">21</text>
+
+            <rect x="300" y="230" width="60"  height="70" rx="6" fill="#F0FDFA" stroke="#CCFBF1"/>
+            <text x="330" y="258" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">NS</text>
+            <text x="330" y="283" font-family="Space Grotesk" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">34</text>
+
+            <rect x="370" y="230" width="90"  height="70" rx="6" fill="#F1F5F9" stroke="#E2E8F0"/>
+            <text x="415" y="258" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#94A3B8" text-anchor="middle">PE · NL</text>
+            <text x="415" y="283" font-family="Space Grotesk" font-size="11" font-weight="500" fill="#94A3B8" text-anchor="middle">5 postings</text>
+          </svg>
+
+          <div class="legend-bar">
+            <div style="background:#F0FDFA"></div>
+            <div style="background:#CCFBF1"></div>
+            <div style="background:#99F6E4"></div>
+            <div style="background:#5EEAD4"></div>
+            <div style="background:#14B8A6"></div>
+            <div style="background:#0F766E"></div>
+          </div>
+          <div class="legend-labels"><span>0</span><span>50</span><span>200</span><span>500</span><span>1000+</span></div>
+        </div>
+
+        <!-- Ranked bars -->
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:600">Ranked · postings / median</div>
+          <div class="bars">
+            <div class="barRow"><div class="lbl">Ontario</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="num"><b>949</b> <small>$77.7k</small></div></div>
+            <div class="barRow"><div class="lbl">British Columbia</div><div class="track"><div class="fill" style="width:26%"></div></div><div class="num"><b>243</b> <small>$80.6k</small></div></div>
+            <div class="barRow"><div class="lbl">Alberta</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="num"><b>192</b> <small>$78.1k</small></div></div>
+            <div class="barRow"><div class="lbl">Quebec</div><div class="track"><div class="fill" style="width:19%"></div></div><div class="num"><b>176</b> <small>$77.0k</small></div></div>
+            <div class="barRow"><div class="lbl">Undefined</div><div class="track"><div class="fill muted" style="width:12%"></div></div><div class="num"><b>118</b> <small>$75.4k</small></div></div>
+            <div class="barRow"><div class="lbl">Manitoba</div><div class="track"><div class="fill dim" style="width:4%"></div></div><div class="num"><b>37</b> <small>$67.5k</small></div></div>
+            <div class="barRow"><div class="lbl">Nova Scotia</div><div class="track"><div class="fill dim" style="width:4%"></div></div><div class="num"><b>34</b> <small>$75.3k</small></div></div>
+            <div class="barRow"><div class="lbl">New Brunswick</div><div class="track"><div class="fill dim" style="width:2%"></div></div><div class="num"><b>21</b> <small>$77.0k</small></div></div>
+            <div class="barRow"><div class="lbl">Saskatchewan ★</div><div class="track"><div class="fill gold" style="width:2%"></div></div><div class="num"><b>16</b> <small>$82.9k</small></div></div>
+          </div>
+          <div style="margin-top:8px;padding:6px 8px;background:var(--gold-bg);border-radius:5px;font-size:9.5px;color:var(--gold);font-weight:500">
+            ★ <b>Insight:</b> Saskatchewan pays the highest median despite only 16 postings.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROW 2: JOB TITLES + WORK TYPE × PROVINCE ── -->
+  <div class="row r2">
+
+    <div class="viz">
+      <div class="viz-head">
+        <div class="t">Job Titles by Volume <small>· top 8 categories</small></div>
+        <div class="legend"><span><span class="sw" style="background:#B88A00"></span>postings</span></div>
+      </div>
+      <div class="bars">
+        <div class="barRow wide"><div class="lbl">Senior Supply Chain</div><div class="track"><div class="fill gold" style="width:100%"></div></div><div class="num">262</div></div>
+        <div class="barRow wide"><div class="lbl">Senior BI Analysts</div><div class="track"><div class="fill gold" style="width:87%"></div></div><div class="num">229</div></div>
+        <div class="barRow wide"><div class="lbl">Senior Business</div><div class="track"><div class="fill gold" style="width:82%"></div></div><div class="num">214</div></div>
+        <div class="barRow wide"><div class="lbl">Business Systems</div><div class="track"><div class="fill gold" style="width:71%"></div></div><div class="num">187</div></div>
+        <div class="barRow wide"><div class="lbl">Systems &amp; Data</div><div class="track"><div class="fill gold" style="width:71%"></div></div><div class="num">185</div></div>
+        <div class="barRow wide"><div class="lbl">Senior Data Analysts</div><div class="track"><div class="fill gold" style="width:65%"></div></div><div class="num">170</div></div>
+        <div class="barRow wide"><div class="lbl">Financial &amp; Ops</div><div class="track"><div class="fill gold" style="width:62%"></div></div><div class="num">163</div></div>
+        <div class="barRow wide"><div class="lbl">Business &amp; Technical</div><div class="track"><div class="fill gold" style="width:61%"></div></div><div class="num">160</div></div>
+      </div>
+    </div>
+
+    <div class="viz">
+      <div class="viz-head">
+        <div class="t">Median Salary by Work Type × Province <small>· top 4 provinces</small></div>
+        <div class="legend">
+          <span><span class="sw" style="background:#B88A00"></span>On-site</span>
+          <span><span class="sw" style="background:#14B8A6"></span>Remote</span>
+          <span><span class="sw" style="background:#94A3B8"></span>Hybrid</span>
+        </div>
+      </div>
+      <div class="gbars">
+        <div class="gbar-row">
+          <div class="pheader">Ontario <small>n=949</small></div>
+          <div class="gbar-item"><span class="type">On-site</span><div class="track"><div class="fill" style="width:97%;background:#B88A00"></div></div><span class="num">$77,750</span></div>
+          <div class="gbar-item"><span class="type">Remote</span><div class="track"><div class="fill" style="width:91%;background:#14B8A6"></div></div><span class="num">$72,500</span></div>
+          <div class="gbar-item"><span class="type">Hybrid</span><div class="track"><div class="fill" style="width:94%;background:#94A3B8"></div></div><span class="num">$75,500</span></div>
+        </div>
+        <div class="gbar-row">
+          <div class="pheader">British Columbia <small>n=243</small></div>
+          <div class="gbar-item"><span class="type">On-site</span><div class="track"><div class="fill" style="width:100%;background:#B88A00"></div></div><span class="num">$80,586</span></div>
+          <div class="gbar-item"><span class="type">Remote</span><div class="track"><div class="fill" style="width:96%;background:#14B8A6"></div></div><span class="num">$77,000</span></div>
+        </div>
+        <div class="gbar-row">
+          <div class="pheader">Alberta <small>n=192</small></div>
+          <div class="gbar-item"><span class="type">On-site</span><div class="track"><div class="fill" style="width:98%;background:#B88A00"></div></div><span class="num">$78,150</span></div>
+          <div class="gbar-item"><span class="type">Remote</span><div class="track"><div class="fill" style="width:93%;background:#14B8A6"></div></div><span class="num">$74,000</span></div>
+        </div>
+        <div class="gbar-row">
+          <div class="pheader">Quebec <small>n=176</small></div>
+          <div class="gbar-item"><span class="type">On-site</span><div class="track"><div class="fill" style="width:96%;background:#B88A00"></div></div><span class="num">$76,980</span></div>
+          <div class="gbar-item"><span class="type">Remote</span><div class="track"><div class="fill" style="width:88%;background:#14B8A6"></div></div><span class="num">$70,000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROW 3: BOX PLOTS + TREEMAP ── -->
+  <div class="row r2">
+
+    <!-- Box plots: salary by seniority — properly drawn SVG -->
+    <div class="viz">
+      <div class="viz-head">
+        <div class="t">Salary Distribution by Seniority <small>· min · Q1 · median · Q3 · max</small></div>
+        <div class="legend">
+          <span><span class="sw" style="background:#0F766E"></span>IQR</span>
+          <span><span class="sw" style="background:#1A1A2E"></span>median</span>
+        </div>
+      </div>
+      <div class="boxList">
+
+        <!-- Scale: 40k → 160k → 0..600 px -->
+        <!-- Junior: 48.6, 67.6, 75, 77.5, 95 -->
+        <div class="row-h">
+          <div class="lbl">Junior</div>
+          <svg class="box-svg" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <line x1="0" y1="17" x2="600" y2="17" stroke="#EEF2F6" stroke-width="1"/>
+            <line x1="43" y1="17" x2="275" y2="17" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="43" y1="10" x2="43" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="275" y1="10" x2="275" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <rect x="138" y="6" width="49" height="22" fill="#E6F4F1" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="175" y1="4" x2="175" y2="30" stroke="#1A1A2E" stroke-width="2.5"/>
+          </svg>
+          <div class="stat">$48.6k–$95k<br>median <b>$75k</b> · n=33</div>
+        </div>
+
+        <!-- Mid: 43.7, 63.6, 77.7, 79.4, 134 -->
+        <div class="row-h">
+          <div class="lbl">Mid</div>
+          <svg class="box-svg" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <line x1="0" y1="17" x2="600" y2="17" stroke="#EEF2F6" stroke-width="1"/>
+            <line x1="19" y1="17" x2="470" y2="17" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="19" y1="10" x2="19" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="470" y1="10" x2="470" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <rect x="118" y="6" width="79" height="22" fill="#E6F4F1" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="190" y1="4" x2="190" y2="30" stroke="#1A1A2E" stroke-width="2.5"/>
+          </svg>
+          <div class="stat">$43.7k–$134k<br>median <b>$77.7k</b> · n=36</div>
+        </div>
+
+        <!-- Senior: 43.7, 75.2, 77.7, 89.2, 158.6 -->
+        <div class="row-h">
+          <div class="lbl">Senior</div>
+          <svg class="box-svg" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <line x1="0" y1="17" x2="600" y2="17" stroke="#EEF2F6" stroke-width="1"/>
+            <line x1="19" y1="17" x2="591" y2="17" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="19" y1="10" x2="19" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="591" y1="10" x2="591" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <rect x="177" y="6" width="69" height="22" fill="#E6F4F1" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="190" y1="4" x2="190" y2="30" stroke="#1A1A2E" stroke-width="2.5"/>
+          </svg>
+          <div class="stat">$43.7k–$158.6k<br>median <b>$77.7k</b> · n=368</div>
+        </div>
+
+        <!-- ANY: 43.7, 68.5, 77.7, 87.8, 158.6 -->
+        <div class="row-h">
+          <div class="lbl">ANY</div>
+          <svg class="box-svg" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <line x1="0" y1="17" x2="600" y2="17" stroke="#EEF2F6" stroke-width="1"/>
+            <line x1="19" y1="17" x2="591" y2="17" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="19" y1="10" x2="19" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="591" y1="10" x2="591" y2="24" stroke="#0F766E" stroke-width="1.5"/>
+            <rect x="143" y="6" width="98" height="22" fill="#E6F4F1" stroke="#0F766E" stroke-width="1.5"/>
+            <line x1="190" y1="4" x2="190" y2="30" stroke="#1A1A2E" stroke-width="2.5"/>
+          </svg>
+          <div class="stat">$43.7k–$158.6k<br>median <b>$77.7k</b> · n=1,359</div>
+        </div>
+
+        <div class="boxAxis">
+          <div></div>
+          <div class="axis"><span>$40k</span><span>$70k</span><span>$100k</span><span>$130k</span><span>$160k</span></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treemap: top skills, absolute-positioned for reliability -->
+    <div class="viz">
+      <div class="viz-head">
+        <div class="t">Top Skills <small>· treemap (size=frequency, shade=median pay)</small></div>
+        <div class="legend">
+          <span><span class="sw" style="background:#0F766E"></span>higher</span>
+          <span><span class="sw" style="background:#5EEAD4"></span>lower</span>
+        </div>
+      </div>
+      <div class="tm">
+        <!-- SQL big left half top -->
+        <div class="tile" style="left:0;top:0;width:50%;height:60%;background:linear-gradient(135deg,#0F766E,#14B8A6)">
+          <div class="s" style="font-size:30px">SQL</div>
+          <div class="m">839 postings · median $77,000</div>
+        </div>
+        <!-- Power BI right top -->
+        <div class="tile" style="left:50%;top:0;width:50%;height:40%;background:linear-gradient(135deg,#B88A00,#D4A017)">
+          <div class="s" style="font-size:22px">Power BI</div>
+          <div class="m">465 · $77,500</div>
+        </div>
+        <!-- Python right mid -->
+        <div class="tile" style="left:50%;top:40%;width:25%;height:40%;background:#0F766E">
+          <div class="s" style="font-size:16px">Python</div>
+          <div class="m">439 · $80,000</div>
+        </div>
+        <!-- Excel right mid -->
+        <div class="tile" style="left:75%;top:40%;width:25%;height:40%;background:#14B8A6">
+          <div class="s" style="font-size:16px">Excel</div>
+          <div class="m">435 · $76,300</div>
+        </div>
+        <!-- Tableau bottom-left -->
+        <div class="tile" style="left:0;top:60%;width:25%;height:40%;background:#14B8A6">
+          <div class="s" style="font-size:15px">Tableau</div>
+          <div class="m">295 · $76,000</div>
+        </div>
+        <!-- Database -->
+        <div class="tile" style="left:25%;top:60%;width:15%;height:40%;background:#5EEAD4;color:#0F172A">
+          <div class="s" style="font-size:12px">Database</div>
+          <div class="m">227 · $78,150</div>
+        </div>
+        <!-- Statistics -->
+        <div class="tile" style="left:40%;top:60%;width:13%;height:40%;background:#5EEAD4;color:#0F172A">
+          <div class="s" style="font-size:11px">Statistics</div>
+          <div class="m">217 · $77,500</div>
+        </div>
+        <!-- R -->
+        <div class="tile" style="left:53%;top:80%;width:12%;height:20%;background:#5EEAD4;color:#0F172A">
+          <div class="s" style="font-size:11px">R</div>
+          <div class="m">144</div>
+        </div>
+        <!-- Azure -->
+        <div class="tile" style="left:65%;top:80%;width:12%;height:20%;background:#99F6E4;color:#0F172A">
+          <div class="s" style="font-size:11px">Azure</div>
+          <div class="m">117</div>
+        </div>
+        <!-- JIRA -->
+        <div class="tile" style="left:77%;top:80%;width:11%;height:20%;background:#CCFBF1;color:#0F172A">
+          <div class="s" style="font-size:10px">JIRA</div>
+          <div class="m">92</div>
+        </div>
+        <!-- SAS -->
+        <div class="tile" style="left:88%;top:80%;width:12%;height:20%;background:#CCFBF1;color:#0F172A">
+          <div class="s" style="font-size:10px">SAS</div>
+          <div class="m">64</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── ROW 4: DETAIL TABLE ── -->
+  <div class="row r4">
+    <div class="viz">
+      <div class="viz-head">
+        <div class="t">Detail · Top-Paying Postings <small>· filtered view, sorted by salary</small></div>
+        <div class="legend"><span>Showing 8 of 1,796</span></div>
+      </div>
+      <table class="dtable">
+        <thead>
+          <tr><th>Position</th><th>Job Title Category</th><th>City · Province</th><th>Seniority</th><th>Skills</th><th class="num">Salary</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Senior Data Engineer</td><td>Senior Data Analysts</td><td>Toronto · ON</td><td>Senior</td><td><span class="tag">SQL</span><span class="tag">Python</span></td><td class="num">$158,640</td></tr>
+          <tr><td>BI Analytics Manager</td><td>Senior BI Analysts</td><td>Vancouver · BC</td><td>Senior</td><td><span class="tag">Power BI</span><span class="tag">Azure</span></td><td class="num">$134,000</td></tr>
+          <tr><td>Senior BI Analyst</td><td>Senior BI Analysts</td><td>Calgary · AB</td><td>Senior</td><td><span class="tag">SQL</span><span class="tag">Tableau</span></td><td class="num">$118,500</td></tr>
+          <tr><td>Risk Analyst</td><td>Systems &amp; Data Analysts</td><td>Remote</td><td>ANY</td><td><span class="tag">Python</span><span class="tag">SQL</span></td><td class="num">$112,000</td></tr>
+          <tr><td>Data Scientist</td><td>Senior Data Analysts</td><td>Montréal · QC</td><td>Senior</td><td><span class="tag">Python</span><span class="tag">R</span></td><td class="num">$105,000</td></tr>
+          <tr><td>Supply Chain Analyst</td><td>Senior Supply Chain</td><td>Mississauga · ON</td><td>ANY</td><td><span class="tag">SQL</span><span class="tag">Excel</span></td><td class="num">$98,500</td></tr>
+          <tr><td>Senior Business Analyst</td><td>Senior Business</td><td>Ottawa · ON</td><td>Senior</td><td><span class="tag">SQL</span><span class="tag">Power BI</span></td><td class="num">$92,000</td></tr>
+          <tr><td>Database Analyst</td><td>Database Analysts</td><td>Edmonton · AB</td><td>ANY</td><td><span class="tag">SQL</span><span class="tag">Database</span></td><td class="num">$89,440</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="foot">
+    <div><b>Source</b> · Kaggle · Indeed.ca Canadian Analyst Postings (1,796 cleaned rows)</div>
+    <div><span class="mockup-badge">MOCKUP · NOT LIVE</span></div>
+    <div><b>Northbound Analytics</b> · BAM-2053 · Spring 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
